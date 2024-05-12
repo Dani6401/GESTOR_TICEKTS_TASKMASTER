@@ -1,6 +1,7 @@
 <?php
     class Usuario extends Conectar{
 
+        /* Funcion de login y generacion de session */
         public function login(){
             $conectar=parent::conexion();
             parent::set_names();
@@ -12,7 +13,7 @@
                     header("Location:".conectar::ruta()."index.php?m=2");
 					exit();
                 }else{
-                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_pass=? and rol_id=? and est=1";
+                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_pass=MD5(?) and rol_id=? and est=1";
                     $stmt=$conectar->prepare($sql);
                     $stmt->bindValue(1, $correo);
                     $stmt->bindValue(2, $pass);
@@ -34,21 +35,24 @@
             }
         }
 
-        public function insert_usuario($usu_nom,$usu_ape,$usu_correo,$usu_pass,$rol_id){
+        /* Insert */
+        public function insert_usuario($usu_nom,$usu_ape,$usu_correo,$usu_pass,$rol_id,$usu_telf){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tm_usuario (usu_id, usu_nom, usu_ape, usu_correo, usu_pass, rol_id, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,?,?,now(), NULL, NULL, '1');";
+            $sql="INSERT INTO tm_usuario (usu_id, usu_nom, usu_ape, usu_correo, usu_pass, rol_id, usu_telf, fech_crea, fech_modi, fech_elim, est) VALUES (NULL,?,?,?,MD5(?),?,?,now(), NULL, NULL, '1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_nom);
             $sql->bindValue(2, $usu_ape);
             $sql->bindValue(3, $usu_correo);
             $sql->bindValue(4, $usu_pass);
             $sql->bindValue(5, $rol_id);
+            $sql->bindValue(6, $usu_telf);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
-        public function update_usuario($usu_id,$usu_nom,$usu_ape,$usu_correo,$usu_pass,$rol_id){
+        /* Update */
+        public function update_usuario($usu_id,$usu_nom,$usu_ape,$usu_correo,$usu_pass,$rol_id,$usu_telf){
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_usuario set
@@ -56,7 +60,8 @@
                 usu_ape = ?,
                 usu_correo = ?,
                 usu_pass = ?,
-                rol_id = ?
+                rol_id = ?,
+                usu_telf = ?
                 WHERE
                 usu_id = ?";
             $sql=$conectar->prepare($sql);
@@ -65,11 +70,13 @@
             $sql->bindValue(3, $usu_correo);
             $sql->bindValue(4, $usu_pass);
             $sql->bindValue(5, $rol_id);
-            $sql->bindValue(6, $usu_id);
+            $sql->bindValue(6, $usu_telf);
+            $sql->bindValue(7, $usu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
+        /* Delete */
         public function delete_usuario($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -80,6 +87,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* Todos los registros */
         public function get_usuario(){
             $conectar= parent::conexion();
             parent::set_names();
@@ -89,6 +97,17 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* Obtener registros de usuarios segun rol 2 */
+        public function get_usuario_x_rol(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuario where est=1 and rol_id=2";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        /* Registro x id */
         public function get_usuario_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -99,6 +118,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* Total de registros segun usu_id */
         public function get_usuario_total_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -109,6 +129,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* TODO: Total de Tickets Abiertos por usu_id */
         public function get_usuario_totalabierto_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -119,6 +140,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* TODO: Total de Tickets Cerrado por usu_id */
         public function get_usuario_totalcerrado_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -129,6 +151,7 @@
             return $resultado=$sql->fetchAll();
         }
 
+        /* TODO: Total de Tickets por categoria segun usuario */
         public function get_usuario_grafico($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -145,6 +168,23 @@
             $sql->bindValue(1, $usu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        } 
+        }
+
+        /* TODO: Actualizar contraseña del usuario */
+        public function update_usuario_pass($usu_id,$usu_pass){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE tm_usuario
+                SET
+                    usu_pass = MD5(?)
+                WHERE
+                    usu_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_pass);
+            $sql->bindValue(2, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
 
     }
+?>

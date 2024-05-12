@@ -124,7 +124,7 @@ $(document).ready(function(){
 });
 
 function ver(tick_id){
-    window.open('http://localhost:80/HELPDESKS/view/DetalleTicket/?ID='+ tick_id +'');
+    window.open('http://localhost:8080/TASKMASTER_CENTRAL/view/DetalleTicket/?ID='+ tick_id +'');
 }
 
 function asignar(tick_id){
@@ -148,6 +148,13 @@ function guardar(e){
         contentType: false,
         processData: false,
         success: function(datos){
+            /*proceso para correo de asignacion de tk */
+            var tick_id = $('#tick_id').val();
+            $.post("../../controller/email.php?op=ticket_asignado", {tick_id : tick_id}, function (data) {
+
+            });
+            swal("Listo!", "Ticket Asignado Correctamente", "success");
+
             $("#modalasignar").modal('hide');
             $('#ticket_data').DataTable().ajax.reload();
         }

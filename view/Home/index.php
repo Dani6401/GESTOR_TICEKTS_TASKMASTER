@@ -13,7 +13,7 @@
     <?php require_once("../MainHeader/header.php");?>
 
     <div class="mobile-menu-left-overlay"></div>
-    
+
     <?php require_once("../MainNav/nav.php");?>
 
 	<!-- Contenido -->
@@ -58,7 +58,7 @@
 					<div id="divgrafico" style="height: 250px;"></div>
 				</div>
 			</section>
-			
+
 		</div>
 	</div>
 	<!-- Contenido -->
@@ -67,7 +67,10 @@
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
 	<script type="text/javascript" src="home.js"></script>
+
+	<script type="text/javascript" src="../notificacion.js"></script>
 
 </body>
 </html>
