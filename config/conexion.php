@@ -6,7 +6,7 @@
 
         protected function Conexion(){
             try {
-				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=helpdesk","root","");
+				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=helpdesk","root",""); //debe poner el nombre de la base de datos en dbname
 				return $conectar;	
 			} catch (Exception $e) {
 				print "¡Error BD!: " . $e->getMessage() . "<br/>";
@@ -19,7 +19,7 @@
         }
         
         public static function ruta(){
-			return "http://localhost:80/HELPDESKS/";
+			return "http://localhost:8080/PROYECTOS/HELPDESKS/"; //establezca la dirección local donde se encuentra el proyecto. 
 		}
 
     }

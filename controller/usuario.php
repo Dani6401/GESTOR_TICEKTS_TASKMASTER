@@ -100,7 +100,7 @@
             echo json_encode($datos);
         break;
 
-        case "combo";
+        case "combo"; 
             $datos = $usuario->get_usuario_x_rol();
             if(is_array($datos)==true and count($datos)>0){
                 $html.= "<option label='Seleccionar'></option>";
@@ -111,5 +111,15 @@
                 echo $html;
             }
         break;
+
+        case "cambiarcontraseña"; 
+        echo "Usuario ID: " . $_POST["usu_id"] . ", Nueva Contraseña: " . $_POST["usu_pass"];
+            $usuario->update_pass($_SESSION["usu_id"],$_POST["usu_pass"]);
+
+        break;
+
+        case "cambiarcorreo";
+        echo "Usuario ID: " . $_POST["usu_id"] . ", Nuevo Correo: " . $_POST["usu_correo"];
+            $usuario->update_correo($_SESSION["usu_id"],$_POST["usu_correo"]);
+        break;
     }
-?>

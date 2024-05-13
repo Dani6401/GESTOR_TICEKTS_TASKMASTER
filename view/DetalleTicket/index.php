@@ -41,14 +41,20 @@ if (isset($_SESSION["usu_id"])) {
         <div class="box-typical box-typical-padding">
           <div class="row">
 
-              <div class="col-lg-6">
+              <div class="col-lg-5">
                 <fieldset class="form-group">
                   <label class="form-label semibold" for="cat_nom">Categoria</label>
                   <input type="text" class="form-control" id="cat_nom" name="cat_nom" readonly>
                 </fieldset>
               </div>
+              <div class="col-lg-7">
+                <fieldset class="form-group">
+                  <label class="form-label semibold" for="cats_nom">SubCategoria</label>
+                  <input type="text" class="form-control" id="cats_nom" name="cats_nom" readonly>
+                </fieldset>
+              </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <fieldset class="form-group">
                   <label class="form-label semibold" for="tick_titulo">Titulo</label>
                   <input type="text" class="form-control" id="tick_titulo" name="tick_titulo" readonly>
@@ -61,7 +67,6 @@ if (isset($_SESSION["usu_id"])) {
                   <div class="summernote-theme-1">
                     <textarea id="tickd_descripusu" name="tickd_descripusu" class="summernote" name="name"></textarea>
                   </div>
-
                 </fieldset>
               </div>
 

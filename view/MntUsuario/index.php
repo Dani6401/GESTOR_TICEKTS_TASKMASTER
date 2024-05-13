@@ -42,8 +42,8 @@
 							<th class="d-none d-sm-table-cell" style="width: 40%;">Correo</th>
 							<th class="d-none d-sm-table-cell" style="width: 5%;">Contraseña</th>
 							<th class="d-none d-sm-table-cell" style="width: 5%;">Rol</th>
-							<th class="d-none d-sm-table-cell" style="width: 5%;"></th>
-							<th class="d-none d-sm-table-cell" style="width: 5%;"></th>
+							<th class="d-none d-sm-table-cell" style="width: 5%;">Editar</th>
+							<th class="d-none d-sm-table-cell" style="width: 5%;">Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -25,14 +25,26 @@ $(document).ready(function() {
     $.post("../../controller/categoria.php?op=combo",function(data, status){
         $('#cat_id').html(data);
     });
+    
+    $('#cat_id').change(function(){
+        cat_id = $(this).val();
+        
+        $.post("../../controller/subcategoria.php?op=combo", {cat_id : cat_id}, function (data) {
+            $('#cats_id').html(data);
+        });
+    });
+
+    $.post("../../controller/prioridad.php?op=combo",function(data, status){
+        $('#prio_id').html(data);
+    });
 
 });
 
 function guardaryeditar(e){
     e.preventDefault();
     var formData = new FormData($("#ticket_form")[0]);
-    if ($('#tick_descrip').summernote('isEmpty') || $('#tick_titulo').val()==''){
-        swal("Advertencia!", "Campos Vacios", "warning");
+    if ($('#tick_descrip').summernote('isEmpty') || $('#tick_titulo').val()==0 || $('#cats_id').val()==0 || $('#cat_id').val()==0 || $('#prio_id').val()==0){
+        swal("Advertencia!", "Se Encuentran Campos Vacios!", "warning");
     }else{
         $.ajax({
             url: "../../controller/ticket.php?op=insert",
@@ -44,7 +56,15 @@ function guardaryeditar(e){
                 console.log("Respuesta del servidor:", datos);
                 $('#tick_titulo').val('');
                 $('#tick_descrip').summernote('reset');
-                swal("Correcto!", "Registrado Correctamente", "success");
+                swal("Listo!", "Ticket Registrado Correctamente!", "success");
+
+                data = JSON.parse(data);
+                console.log(data[0].tick_id);
+
+                $.post("../../controller/email.php?op=ticket_abierto", {tick_id : data[0].tick_id}, function (data) {
+
+                });
+
             },
             error: function(xhr, status, error) {
                 console.log("Error en la solicitud AJAX:", error);

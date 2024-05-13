@@ -34,26 +34,38 @@
 			</header>
 
 			<div class="box-typical box-typical-padding">
-				<p>
-					Desde esta ventana podra generar nuevos tickets de HelpDesk.
-				</p>
-
-				<h5 class="m-t-lg with-border">Ingresar Información</h5>
+				<h5 class="m-t-lg with-border">Ingresar Información para Crear el Ticket</h5>
 
 				<div class="row">
 					<form method="post" id="ticket_form" action="ticket.php">
 
 						<input type="hidden" id="usu_id" name="usu_id" value="<?php echo $_SESSION["usu_id"] ?>">
 
-						<div class="col-lg-6">
+						<div class="col-lg-5">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="exampleInput">Categoria</label>
 								<select id="cat_id" name="cat_id" class="form-control">
-									
+									<option label="Seleccionar"></option>
 								</select>
 							</fieldset>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-7">
+							<fieldset class="form-group">
+								<label class="form-label semibold" for="exampleInput">SubCategoria</label>
+								<select id="cats_id" name="cats_id" class="form-control">
+									<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+						</div>
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold" for="exampleInput">Prioridad</label>
+								<select id="prio_id" name="prio_id" class="form-control">
+									<option label="Seleccionar"></option>
+								</select>
+							</fieldset>
+						</div>
+						<div class="col-lg-12">
 							<fieldset class="form-group">
 								<label class="form-label semibold" for="tick_titulo">Titulo</label>
 								<input type="text" class="form-control" id="tick_titulo" name="tick_titulo" placeholder="Ingrese Titulo">
@@ -67,12 +79,12 @@
 								</div>
 							</fieldset>
 						</div>
+						
 						<div class="col-lg-12">
 							<button type="submit" name="action" value="add" class="btn btn-rounded btn-inline btn-primary">Guardar</button>
 						</div>
 					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>
